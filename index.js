@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //get port number and provide default port in case if .env file doesn't have port details
 const port = process.env.PORT || 3000;
-//mongoUri = mongodb+srv://tweet:Abc123@sandbox.7nhxb.mongodb.net/
+
 const mongoUri = `mongodb+srv://${process.env.MONGO_USER_NAME}:${process.env.MONGO_PASSWD}@${process.env.MONGO_HOST_NAME}/${process.env.MONGO_DB_NAME}`;
 
 // console.log(mongoUri);
@@ -53,6 +53,11 @@ db.on("disconnected", () => {
 //Import fruits controller and reidrect to fruits controller
 const fruitsController = require("./controllers/fruit_controller.js");
 app.use("/fruits", fruitsController);
+
+//To redirect to fruits controller
+app.get("/",(req, res)=>{
+  res.redirect("/fruits");
+});
 
 //Example of different controllers
 //const plantsController = require("./controllers/plants_controller.js");
